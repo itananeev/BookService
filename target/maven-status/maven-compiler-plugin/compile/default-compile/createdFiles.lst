@@ -1,0 +1,11 @@
+com\bezkoder\springjwt\services\BookService.class
+com\bezkoder\springjwt\SpringBootSecurityJwtApplication.class
+com\bezkoder\springjwt\payload\ExceptionHandler.class
+com\bezkoder\springjwt\payload\ResponseWithMessage.class
+com\bezkoder\springjwt\models\Author.class
+com\bezkoder\springjwt\models\Book.class
+com\bezkoder\springjwt\repository\BooksRepo.class
+com\bezkoder\springjwt\controllers\BookController.class
+com\bezkoder\springjwt\payload\ResponseWithMessage$ResponseWithMessageBuilder.class
+com\bezkoder\springjwt\models\Book$BookBuilder.class
+com\bezkoder\springjwt\services\BookServiceImplementation.class
