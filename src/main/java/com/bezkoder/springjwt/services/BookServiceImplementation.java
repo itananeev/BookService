@@ -26,9 +26,9 @@ public class BookServiceImplementation implements BookService {
     public Optional<Book> findById(Long id) {
         return booksRepo.findById(id); }
 
-    @Override
-    public List<Book> findBookByAuthor_Name(String author) {
-        return booksRepo.findBookByAuthor_Name(author); }
+//    @Override
+//    public List<Book> findBookByAuthor_Name(String author) {
+//        return booksRepo.findBookByAuthor_Name(author); }
 
     @Override
     public List<Book> findBooksByPublishDate(String publishDate){

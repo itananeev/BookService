@@ -70,6 +70,11 @@
 			<version>1.18.22</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

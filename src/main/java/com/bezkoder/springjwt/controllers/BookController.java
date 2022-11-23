@@ -1,5 +1,6 @@
 package com.bezkoder.springjwt.controllers;
 
+import com.bezkoder.springjwt.Client;
 import com.bezkoder.springjwt.models.Book;
 import com.bezkoder.springjwt.payload.ResponseWithMessage;
 import com.bezkoder.springjwt.services.BookService;
@@ -22,6 +23,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private Client client;
 
     @GetMapping
     public ResponseEntity<ResponseWithMessage<List<Book>>> getAll(){
@@ -49,24 +52,26 @@ public class BookController {
         return new ResponseEntity<>(new ResponseWithMessage<>(result, null), HttpStatus.OK);
     }
 
-    @GetMapping(params = "name")
-    public ResponseEntity<ResponseWithMessage<List<Book>>> getByAuthor_Name(@RequestParam String name){
-        // TODO: Change this request to take the username from the cookie (case: corresponding user) or user has role admin
-        List<Book> results;
-        try {
-            results = bookService.findBookByAuthor_Name(name);
-        } catch (DataAccessException e) {
-            return new ResponseEntity<>(new ResponseWithMessage<>(null, "Book repository not responding"), HttpStatus.SERVICE_UNAVAILABLE);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(new ResponseWithMessage<>(null, "Something went wrong..."), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>(new ResponseWithMessage<>(results, null), HttpStatus.OK);
-    }
+//    @GetMapping(params = "name")
+//    public ResponseEntity<ResponseWithMessage<List<Book>>> getByAuthor_Name(@RequestParam String name){
+//        // TODO: Change this request to take the username from the cookie (case: corresponding user) or user has role admin
+//        List<Book> results;
+//        try {
+//            results = bookService.findBookByAuthor_Name(name);
+//        } catch (DataAccessException e) {
+//            return new ResponseEntity<>(new ResponseWithMessage<>(null, "Book repository not responding"), HttpStatus.SERVICE_UNAVAILABLE);
+//        } catch (RuntimeException e) {
+//            return new ResponseEntity<>(new ResponseWithMessage<>(null, "Something went wrong..."), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        return new ResponseEntity<>(new ResponseWithMessage<>(results, null), HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<ResponseWithMessage<Book>> postBook(@CookieValue(name="bezkoder") String cookie, @RequestBody Book book){
         try {
+            String username = (String) client.sendMessageAndReceiveResponse(cookie, "roytuts");
+            book.setDescription(username);
             Book newBook = bookService.createBook(book);
             return new ResponseEntity<>(new ResponseWithMessage<>(newBook, "Book successfully created"), HttpStatus.OK);
         } catch (DataAccessException e) {

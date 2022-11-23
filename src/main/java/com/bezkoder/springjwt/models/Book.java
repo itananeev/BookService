@@ -61,16 +61,16 @@ public class Book {
         this.publishDate = publishDate;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    @ManyToOne(optional = false, targetEntity = Author.class)
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private Author author;
+//    public Author getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(Author author) {
+//        this.author = author;
+//    }
+//
+//    @ManyToOne(optional = false, targetEntity = Author.class)
+//    @JoinColumn(name = "author_id", referencedColumnName = "id")
+//    private Author author;
 
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface BooksRepo extends JpaRepository<Book, Long> {
     List<Book> findAll();
     Optional<Book> findById(Long id);
-    List<Book> findBookByAuthor_Name(String name);
+    //List<Book> findBookByAuthor_Name(String name);
     List<Book> findBooksByPublishDate(String publishDate);
 
     @Override
