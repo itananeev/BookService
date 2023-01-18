@@ -3,5 +3,10 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="SpringConfigurationProxyMethods" enabled="true" level="WARNING" enabled_by_default="true" editorAttributes="WARNING_ATTRIBUTES" />
     <inspection_tool class="SpringJavaConstructorAutowiringInspection" enabled="true" level="TYPO" enabled_by_default="true" editorAttributes="INFO_ATTRIBUTES" />
+    <inspection_tool class="com.haulmont.jpb.CompositeIdClassSerializable" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="o">
+        <Project />
+      </option>
+    </inspection_tool>
   </profile>
 </component>

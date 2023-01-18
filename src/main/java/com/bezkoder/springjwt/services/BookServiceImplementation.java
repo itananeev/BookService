@@ -13,6 +13,10 @@ public class BookServiceImplementation implements BookService {
     @Autowired
     private final BooksRepo booksRepo;
 
+    public void save(Book book) {
+        booksRepo.save(book);
+    }
+
     public BookServiceImplementation(BooksRepo booksRepo){
         this.booksRepo = booksRepo;
     }

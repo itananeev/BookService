@@ -5,6 +5,7 @@ import com.bezkoder.springjwt.models.Book;
 import com.bezkoder.springjwt.payload.ResponseWithMessage;
 import com.bezkoder.springjwt.services.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,11 @@ public class BookController {
     @Autowired
     private Client client;
 
+    @RabbitListener(queues = "${queue.name}")
+    public String getBookTitle(String title) {
+        return title;
+    }
+
     @GetMapping
     public ResponseEntity<ResponseWithMessage<List<Book>>> getAll(){
         List<Book> books;
@@ -44,6 +50,7 @@ public class BookController {
         Optional<Book> result;
         try {
             result = bookService.findById(id);
+            getBookTitle(result.get().getTitle());
         } catch (DataAccessException e) {
             return new ResponseEntity<>(new ResponseWithMessage<>(null, "Book repository not responding"), HttpStatus.SERVICE_UNAVAILABLE);
         } catch (RuntimeException e) {
@@ -70,7 +77,9 @@ public class BookController {
     @PostMapping
     public ResponseEntity<ResponseWithMessage<Book>> postBook(@CookieValue(name="bezkoder") String cookie, @RequestBody Book book){
         try {
+            //put in search service
             String username = (String) client.sendMessageAndReceiveResponse(cookie, "roytuts");
+            //
             book.setDescription(username);
             Book newBook = bookService.createBook(book);
             return new ResponseEntity<>(new ResponseWithMessage<>(newBook, "Book successfully created"), HttpStatus.OK);
